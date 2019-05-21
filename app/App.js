@@ -7,6 +7,9 @@ import { colors } from './common';
 import { Provider } from 'react-redux';
 import { store } from './reducers';
 import { persistStore } from 'redux-persist';
+import { ScooziApiService } from './services';
+
+ScooziApiService.setStore(store);
 
 const TopBar = () => <StatusBar barStyle={'light-content'} backgroundColor={colors.main} />;
 export default class App extends Component {
