@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import i18n from '../i18n';
+import colors from '../common/colors';
+import { PADDING, BORDER_RADIUS } from '../common/styles';
 
+const MainButton = (props) => (
+    <TouchableOpacity style={styles.btn} onPress={props.onPress}>
+        <Text style={styles.btnTxt}>{props.title}</Text>
+    </TouchableOpacity>
+);
 export default class WelcomeScene extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome to Scoozi!</Text>
+                <Text style={styles.title}>{i18n.t('scoozi')}</Text>
+                <Text style={styles.instructions}>{i18n.t('reinventing_urban_mobility')}</Text>
+                <MainButton onPress={() => alert('not_implemented')} title={i18n.t('login')} />
+                <MainButton onPress={() => alert('not_implemented')} title={i18n.t('register')} />
             </View>
         );
     }
@@ -14,18 +25,30 @@ export default class WelcomeScene extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF'
+        backgroundColor: colors.background,
+        padding: PADDING
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10
+    title: {
+        fontSize: 120,
+        fontWeight: 'bold',
+        color: colors.main
     },
     instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5
+        fontSize: 18,
+        color: colors.main
+    },
+    btn: {
+        width: '75%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.main,
+        padding: PADDING,
+        borderRadius: BORDER_RADIUS
+    },
+    btnTxt: {
+        fontSize: 28,
+        color: colors.white
     }
 });

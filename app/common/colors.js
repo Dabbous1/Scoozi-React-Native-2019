@@ -5,7 +5,7 @@ const NAMED_COLORS = {
 
 const THEME_COLORS = {
     ...NAMED_COLORS,
-    statusBar: NAMED_COLORS.whiteRed,
+    main: NAMED_COLORS.whiteRed,
     background: NAMED_COLORS.white
 };
 

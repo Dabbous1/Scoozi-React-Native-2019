@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './reducers';
 import { persistStore } from 'redux-persist';
 
-const TopBar = () => <StatusBar barStyle={'light-content'} backgroundColor={colors.statusBar} />;
+const TopBar = () => <StatusBar barStyle={'light-content'} backgroundColor={colors.main} />;
 export default class App extends Component {
     state = {
         ready: false
@@ -46,6 +46,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: colors.statusBar
+        backgroundColor: colors.main
     }
 });
