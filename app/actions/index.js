@@ -1,4 +1,4 @@
-import * as asyncActions from "./asyncActions";
+import * as asyncActions from './asyncActions';
 module.exports = {
-  ...asyncActions
+    ...asyncActions
 };

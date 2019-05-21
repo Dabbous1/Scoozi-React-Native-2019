@@ -1,5 +1,5 @@
-import * as commonSelectors from "./commonSelectors";
+import * as commonSelectors from './commonSelectors';
 
 module.exports = {
-  commonSelectors
+    commonSelectors
 };

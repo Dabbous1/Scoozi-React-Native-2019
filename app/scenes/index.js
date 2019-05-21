@@ -1,5 +1,5 @@
-import WelcomeScene from "./WelcomeScene";
+import WelcomeScene from './WelcomeScene';
 
 module.exports = {
-  WelcomeScene
+    WelcomeScene
 };

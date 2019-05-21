@@ -1,5 +1,5 @@
-import * as userOperations from "./userOperations";
+import * as userOperations from './userOperations';
 
 module.exports = {
-  ...userOperations
+    ...userOperations
 };
