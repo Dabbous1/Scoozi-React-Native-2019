@@ -1,10 +1,11 @@
 import Axios from 'axios';
 import { secrets } from '../secrets';
+import { getAccessToken, getContent } from './ServiceUtils';
 
-export default class OgraApiService {
+export default class ScooziApiService {
     constructor(props) {
         this.client = Axios.create({
-            baseURL: `${secrets.baseUrl}/api`,
+            baseURL: `${secrets.baseUrl}`,
             timeout: 5000
         });
     }
@@ -16,15 +17,16 @@ export default class OgraApiService {
         this.store = store;
         this.unsubscribe = store.subscribe(() => {
             const state = store.getState();
+            this.publicAccessToken = state.publicAccessToken;
+            this.currentUserAccessToken = state.currentUserAccessToken;
         });
     }
 
     makeRequest(method, url, params = {}) {
-        return this.client[method](url, params);
+        return this.client[method](url, params).then(getContent);
     }
 
     get(url, params) {
-        console.log(url);
         return this.makeRequest('get', url, params);
     }
 

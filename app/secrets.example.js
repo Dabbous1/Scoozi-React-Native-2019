@@ -1,3 +1,11 @@
+import { onEnvironment } from './common';
+
 export const secrets = {
-    baseUrl: ''
+    baseUrl: '',
+    ...onEnvironment({
+        staging: {
+            clientId: '',
+            clientSecret: ''
+        }
+    })
 };

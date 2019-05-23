@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as asyncReducers from './asyncReducers';
 import * as commonReducers from './commonReducers';
+import * as userReducers from './userReducers';
 import thunk from 'redux-thunk';
 import reduce from 'lodash/reduce';
 function combineArrayReducers(reducers = []) {
@@ -20,13 +21,15 @@ function combineArrayReducers(reducers = []) {
 const rootReducer = combineArrayReducers([
     combineReducers({
         ...commonReducers,
+        ...userReducers,
         operations: combineReducers({ ...asyncReducers })
     })
 ]);
 
 const persistConfig = {
     key: 'root',
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    whitelist: ['publicAccessToken']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

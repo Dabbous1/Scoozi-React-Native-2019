@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import { store } from './reducers';
 import { persistStore } from 'redux-persist';
 import { ScooziApiService } from './services';
+import { getPublicAccessToken } from './actions';
+import { getPublicToken } from './selectors';
 
 ScooziApiService.setStore(store);
 
@@ -22,7 +24,10 @@ export default class App extends Component {
     }
 
     onStart = () => {
-        this.setState({ ready: true });
+        const accessToken = getPublicToken(store.getState());
+        Promise.all([accessToken && store.dispatch(getPublicAccessToken())]).then(() => {
+            this.setState({ ready: true });
+        });
     };
 
     render() {
