@@ -29,8 +29,7 @@ export const getContent = (response) => {
 };
 
 export const getAccessToken = (response) => {
-    response = response.body || response;
-    if (!response.error) {
+    if (response.status === 200) {
         return response.data.access_token;
     } else {
         throw new OauthCallFailedException(

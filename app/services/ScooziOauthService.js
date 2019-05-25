@@ -8,6 +8,16 @@ export default class ScooziOauthService {
             baseURL: `${secrets.baseUrl}`,
             timeout: 5000
         });
+        this.client.interceptors.response.use(
+            function(response) {
+                console.log(response);
+                return response;
+            },
+            function(error) {
+                console.log(error.response);
+                return Promise.reject(error.response.data);
+            }
+        );
     }
 
     getPublicAccessToken(params) {

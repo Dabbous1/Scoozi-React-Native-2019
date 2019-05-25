@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { WelcomeScene } from './scenes';
+import { WelcomeScene, LoginScene } from './scenes';
 import { SafeAreaView } from 'react-navigation';
 import { colors } from './common';
 import { Provider } from 'react-redux';
@@ -10,6 +10,7 @@ import { persistStore } from 'redux-persist';
 import { ScooziApiService } from './services';
 import { getPublicAccessToken } from './actions';
 import { getPublicToken } from './selectors';
+import i18n from './i18n';
 
 ScooziApiService.setStore(store);
 
@@ -25,7 +26,7 @@ export default class App extends Component {
 
     onStart = () => {
         const accessToken = getPublicToken(store.getState());
-        Promise.all([accessToken && store.dispatch(getPublicAccessToken())]).then(() => {
+        Promise.all([!accessToken && store.dispatch(getPublicAccessToken())]).then(() => {
             this.setState({ ready: true });
         });
     };
@@ -38,8 +39,16 @@ export default class App extends Component {
                 {ready ? (
                     <Provider store={store}>
                         <Router backAndroidHandler={() => {}}>
-                            <Stack hideNavBar key={'root'}>
-                                <Scene key={'welcome'} component={WelcomeScene} />
+                            <Stack
+                                key={'root'}
+                                navigationBarStyle={styles.navBar}
+                                titleStyle={styles.title}>
+                                <Scene key={'welcome'} hideNavBar component={WelcomeScene} />
+                                <Scene
+                                    key={'login'}
+                                    component={LoginScene}
+                                    title={i18n.t('login')}
+                                />
                             </Stack>
                         </Router>
                     </Provider>
@@ -55,5 +64,11 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: colors.main
+    },
+    navBar: {
+        backgroundColor: colors.main
+    },
+    title: {
+        color: colors.white
     }
 });

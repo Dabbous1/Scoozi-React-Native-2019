@@ -1,6 +1,8 @@
 const NAMED_COLORS = {
     whiteRed: 'rgba(252, 84, 87, 1)',
-    white: 'rgba(255, 255, 255, 1)'
+    white: 'rgba(255, 255, 255, 1)',
+    lightGray: 'rgba(238, 238, 238, 1)',
+    darkGray: 'rgba(117, 142, 152, 1)'
 };
 
 const THEME_COLORS = {

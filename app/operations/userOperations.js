@@ -1,7 +1,7 @@
 import { createAsyncAction } from '../redux/createAsyncAction';
 import { actionTypes } from '../actions/actionTypes';
 import { ScooziApiService, ScooziOauthService } from '../services';
-import { setPublicAccessToken } from '../actions/userActions';
+import { setPublicAccessToken, setPrivateAccessToken } from '../actions/userActions';
 
 export const getPublicAccessToken = createAsyncAction({
     type: actionTypes.GET_PUBLIC_ACCESS_TOKEN,
@@ -15,6 +15,9 @@ export const getPublicAccessToken = createAsyncAction({
 export const logUserIn = createAsyncAction({
     type: actionTypes.LOG_USER_IN,
     operation: (payload, dispatch, getState) => {
-        return Promise.resolve({});
+        return ScooziOauthService.getPrivateAccessToken(payload).then((accessToken) => {
+            dispatch(setPrivateAccessToken(accessToken));
+            return accessToken;
+        });
     }
 });

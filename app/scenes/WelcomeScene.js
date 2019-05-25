@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import i18n from '../i18n';
 import colors from '../common/colors';
 import { PADDING, BORDER_RADIUS } from '../common/styles';
+import { Actions } from 'react-native-router-flux';
 
 const MainButton = (props) => (
     <TouchableOpacity style={styles.btn} onPress={props.onPress}>
@@ -10,12 +11,15 @@ const MainButton = (props) => (
     </TouchableOpacity>
 );
 export default class WelcomeScene extends Component {
+    navigateToLogin = () => {
+        Actions.login();
+    };
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{i18n.t('scoozi')}</Text>
                 <Text style={styles.instructions}>{i18n.t('reinventing_urban_mobility')}</Text>
-                <MainButton onPress={() => alert('not_implemented')} title={i18n.t('login')} />
+                <MainButton onPress={this.navigateToLogin} title={i18n.t('login')} />
                 <MainButton onPress={() => alert('not_implemented')} title={i18n.t('register')} />
             </View>
         );

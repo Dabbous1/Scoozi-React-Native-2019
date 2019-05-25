@@ -18,7 +18,7 @@ export default class ScooziApiService {
         this.unsubscribe = store.subscribe(() => {
             const state = store.getState();
             this.publicAccessToken = state.publicAccessToken;
-            this.currentUserAccessToken = state.currentUserAccessToken;
+            this.privateAccessToken = state.privateAccessToken;
         });
     }
 
@@ -40,9 +40,5 @@ export default class ScooziApiService {
 
     delete(url, params) {
         return this.makeRequest('delete', url, params);
-    }
-
-    logUserIn(params) {
-        return this.post('/login', params);
     }
 }

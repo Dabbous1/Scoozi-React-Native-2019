@@ -29,7 +29,7 @@ const rootReducer = combineArrayReducers([
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['publicAccessToken']
+    whitelist: ['publicAccessToken', 'privateAccessToken']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
