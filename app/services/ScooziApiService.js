@@ -1,13 +1,22 @@
 import Axios from 'axios';
 import { secrets } from '../secrets';
-import { getAccessToken, getContent } from './ServiceUtils';
 
 export default class ScooziApiService {
     constructor(props) {
         this.client = Axios.create({
-            baseURL: `${secrets.baseUrl}`,
+            baseURL: `${secrets.baseUrl}/api/v1`,
             timeout: 5000
         });
+        this.client.interceptors.response.use(
+            function(response) {
+                console.log(response);
+                return response.data;
+            },
+            function(error) {
+                console.log(error.response);
+                return Promise.reject(error.response.data);
+            }
+        );
     }
 
     setStore(store) {
@@ -23,7 +32,10 @@ export default class ScooziApiService {
     }
 
     makeRequest(method, url, params = {}) {
-        return this.client[method](url, params).then(getContent);
+        return this.client[method](url, {
+            ...params,
+            access_token: this.privateAccessToken || this.publicAccessToken
+        });
     }
 
     get(url, params) {
@@ -40,5 +52,9 @@ export default class ScooziApiService {
 
     delete(url, params) {
         return this.makeRequest('delete', url, params);
+    }
+
+    register(params) {
+        return this.post(`/users`, params);
     }
 }

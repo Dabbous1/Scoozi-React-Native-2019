@@ -18,7 +18,7 @@ export const createAsyncAction = ({ type, operation, schema = null, paginator = 
                 return operation(payload, dispatch, getState)
                     .then((result) => {
                         const { entities = {}, result: ids = [] } = schema
-                            ? normalize(result.data, schemas[schema])
+                            ? normalize(result, schemas[schema])
                             : {};
                         return dispatch({
                             type: SUCCESS,

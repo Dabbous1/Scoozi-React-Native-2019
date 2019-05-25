@@ -6,51 +6,64 @@ import { colors, PADDING, BORDER_RADIUS } from '../common';
 import { LoadingView, InputText } from '../components';
 import i18n from '../i18n';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { registerUser } from '../actions';
+import { makeIsOperationLoading, makeGetOperationError } from '../selectors';
+import get from 'lodash/get';
 export class RegisterScene extends Component {
     state = {
         email: '',
         password: '',
-        passwordConfirmation: '',
-        mobileNumber: ''
+        mobile_number: ''
     };
 
-    setLogin = (login) => this.setState({ login });
+    setEmail = (email) => this.setState({ email });
 
     setPassword = (password) => this.setState({ password });
 
-    setConfirmation = (passwordConfirmation) => this.setState({ passwordConfirmation });
+    setMobile = (mobile_number) => this.setState({ mobile_number });
 
-    setMobile = (mobileNumber) => this.setState({ mobileNumber });
+    register = () => {
+        const { registerUser } = this.props;
+        const { email, password, mobile_number } = this.state;
+        registerUser({
+            user: {
+                email,
+                password,
+                password_confirmation: password,
+                mobile_number
+            }
+        });
+    };
 
     render() {
+        const { isLoading, isSigning, errors } = this.props;
+        const userErrors = get(errors, 'errors');
         return (
-            <View style={styles.container}>
+            <LoadingView isLoading={isLoading || isSigning} containerStyle={styles.container}>
                 <InputText
                     ref={(ref) => (this.email = ref)}
                     placeholder={i18n.t('email')}
                     placeholderTextColor={colors.darkGray}
-                    onChangeText={this.setLogin}
+                    onChangeText={this.setEmail}
+                    error={get(userErrors, 'email[0]')}
+                    onSubmitEditing={() => this.password.focus()}
                 />
                 <InputText
                     ref={(ref) => (this.password = ref)}
                     placeholder={i18n.t('password')}
                     placeholderTextColor={colors.darkGray}
                     onChangeText={this.setPassword}
-                />
-                <InputText
-                    ref={(ref) => (this.passwordConf = ref)}
-                    placeholder={i18n.t('password_conf')}
-                    placeholderTextColor={colors.darkGray}
-                    onChangeText={this.setConfirmation}
+                    error={get(userErrors, 'password[0]')}
+                    onSubmitEditing={() => this.mobile.focus()}
                 />
                 <InputText
                     ref={(ref) => (this.mobile = ref)}
                     placeholder={i18n.t('mobile_number')}
                     placeholderTextColor={colors.darkGray}
                     onChangeText={this.setMobile}
+                    error={get(userErrors, 'mobile_number[0]')}
                 />
-                <TouchableOpacity style={styles.register} onPress={this.logUserIn}>
+                <TouchableOpacity style={styles.register} onPress={this.register}>
                     <Text style={styles.registerTxt}>{i18n.t('register').toUpperCase()}</Text>
                 </TouchableOpacity>
                 <View style={styles.row}>
@@ -68,17 +81,28 @@ export class RegisterScene extends Component {
                     <Text style={styles.registerTxt}>{i18n.t('register_with_google')}</Text>
                     <View />
                 </TouchableOpacity>
-            </View>
+            </LoadingView>
         );
     }
 }
 
-const mapStateToProps = (state) => ({});
+const makeMapStateToProps = () => {
+    const getIsLoading = makeIsOperationLoading();
+    const getErrors = makeGetOperationError();
+    const mapStateToProps = (state) => ({
+        isLoading: getIsLoading(state, { operation_name: 'registerUser' }),
+        isSigning: getIsLoading(state, { operation_name: 'logUserIn' }),
+        errors: getErrors(state, { operation_name: 'registerUser' })
+    });
+    return mapStateToProps;
+};
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    registerUser
+};
 
 export default connect(
-    mapStateToProps,
+    makeMapStateToProps,
     mapDispatchToProps
 )(RegisterScene);
 

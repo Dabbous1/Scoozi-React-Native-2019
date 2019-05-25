@@ -12,12 +12,27 @@ export const getPublicAccessToken = createAsyncAction({
         });
     }
 });
+
 export const logUserIn = createAsyncAction({
     type: actionTypes.LOG_USER_IN,
     operation: (payload, dispatch, getState) => {
         return ScooziOauthService.getPrivateAccessToken(payload).then((accessToken) => {
             dispatch(setPrivateAccessToken(accessToken));
             return accessToken;
+        });
+    }
+});
+
+export const registerUser = createAsyncAction({
+    type: actionTypes.REGISTER_USER,
+    operation: (payload, dispatch, getState) => {
+        return ScooziApiService.register(payload).then((res) => {
+            return dispatch(
+                logUserIn.actionCreator({
+                    login: payload.user.email,
+                    password: payload.user.password
+                })
+            );
         });
     }
 });
