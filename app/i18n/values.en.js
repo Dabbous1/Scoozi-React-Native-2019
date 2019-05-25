@@ -11,5 +11,11 @@ module.exports = {
     register_now: 'Register now',
     forgot_password: 'Forgot password?',
     password: 'Password',
-    back: 'Back'
+    back: 'Back',
+    registration: 'Registration',
+    email: 'Email',
+    password_conf: 'Password Confirmation',
+    mobile_number: 'Mobile Number',
+    register_with_google: 'Register with Google',
+    register_with_facebook: 'Register with Facebook'
 };

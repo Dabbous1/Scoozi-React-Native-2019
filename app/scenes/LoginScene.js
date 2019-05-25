@@ -7,17 +7,9 @@ import { PADDING, BORDER_RADIUS } from '../common';
 import { logUserIn } from '../actions';
 import i18n from '../i18n';
 import { makeIsOperationLoading, makeGetOperationError } from '../selectors';
-import { LoadingView } from '../components';
+import { LoadingView, InputText } from '../components';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-const InputText = React.forwardRef((props, ref) => {
-    const [text, setText] = useState('');
-    onChangeText = (text) => {
-        setText(text);
-        props.onChangeText(text);
-    };
-    return <TextInput {...props} ref={ref} style={styles.textInput} onChangeText={onChangeText} />;
-});
 export class LoginScene extends Component {
     state = {
         login: '',
@@ -74,12 +66,12 @@ export class LoginScene extends Component {
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={[styles.row, styles.fbLogin]}>
-                    <Icon name={'facebook'} size={24} color={colors.white} />
+                    <Icon name={'facebook'} size={20} color={colors.white} />
                     <Text style={styles.loginTxt}>{i18n.t('login_with_facebook')}</Text>
                     <View />
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.row, styles.gpLogin]}>
-                    <Icon name={'google'} size={24} color={colors.white} />
+                    <Icon name={'google'} size={20} color={colors.white} />
                     <Text style={styles.loginTxt}>{i18n.t('login_with_google')}</Text>
                     <View />
                 </TouchableOpacity>

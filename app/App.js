@@ -55,7 +55,7 @@ export default class App extends Component {
                                 <Scene
                                     key={'register'}
                                     component={RegisterScene}
-                                    title={i18n.t('register')}
+                                    title={i18n.t('registration')}
                                 />
                             </Stack>
                         </Router>
