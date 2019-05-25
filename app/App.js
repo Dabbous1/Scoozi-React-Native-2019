@@ -3,7 +3,6 @@ import { StyleSheet, View, StatusBar } from 'react-native';
 import { Router, Scene, Stack } from 'react-native-router-flux';
 import { WelcomeScene, LoginScene } from './scenes';
 import { SafeAreaView } from 'react-navigation';
-import { colors } from './common';
 import { Provider } from 'react-redux';
 import { store } from './reducers';
 import { persistStore } from 'redux-persist';
@@ -11,6 +10,7 @@ import { ScooziApiService } from './services';
 import { getPublicAccessToken } from './actions';
 import { getPublicToken } from './selectors';
 import i18n from './i18n';
+import { PADDING, colors } from './common';
 
 ScooziApiService.setStore(store);
 
@@ -34,7 +34,7 @@ export default class App extends Component {
     render() {
         const { ready } = this.state;
         return (
-            <SafeAreaView style={styles.safeArea}>
+            <SafeAreaView style={styles.safeArea} forceInset={{ top: 'never' }}>
                 <TopBar />
                 {ready ? (
                     <Provider store={store}>
@@ -42,6 +42,9 @@ export default class App extends Component {
                             <Stack
                                 key={'root'}
                                 navigationBarStyle={styles.navBar}
+                                backTitle={i18n.t('back')}
+                                backButtonTextStyle={styles.title}
+                                backButtonTintColor={colors.white}
                                 titleStyle={styles.title}>
                                 <Scene key={'welcome'} hideNavBar component={WelcomeScene} />
                                 <Scene
@@ -66,7 +69,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.main
     },
     navBar: {
-        backgroundColor: colors.main
+        backgroundColor: colors.main,
+        paddingHorizontal: PADDING
     },
     title: {
         color: colors.white

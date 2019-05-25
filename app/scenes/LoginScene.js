@@ -3,9 +3,11 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import colors from '../common/colors';
-import { PADDING, BORDER_RADIUS } from '../common/styles';
+import { PADDING, BORDER_RADIUS } from '../common';
 import { logUserIn } from '../actions';
 import i18n from '../i18n';
+import { makeIsOperationLoading, makeGetOperationError } from '../selectors';
+import { LoadingView } from '../components';
 
 const InputText = React.forwardRef((props, ref) => {
     const [text, setText] = useState('');
@@ -34,8 +36,10 @@ export class LoginScene extends Component {
         });
     };
     render() {
+        const { isLoading, errors } = this.props;
+
         return (
-            <View style={styles.container}>
+            <LoadingView isLoading={isLoading} containerStyle={styles.container}>
                 <Text style={styles.title}>{i18n.t('sign_in_manually')}</Text>
                 <InputText
                     ref={(ref) => (this.login = ref)}
@@ -49,23 +53,31 @@ export class LoginScene extends Component {
                     placeholderTextColor={colors.darkGray}
                     onChangeText={this.setPassword}
                 />
-
+                <Text style={styles.error}>{errors && errors.error}</Text>
                 <TouchableOpacity style={styles.login} onPress={this.logUserIn}>
                     <Text style={styles.loginTxt}>{i18n.t('login').toUpperCase()}</Text>
                 </TouchableOpacity>
-            </View>
+            </LoadingView>
         );
     }
 }
 
-const mapStateToProps = (state) => ({});
+const makeMapStateToProps = () => {
+    const getIsLoading = makeIsOperationLoading();
+    const getErrors = makeGetOperationError();
+    const mapStateToProps = (state) => ({
+        isLoading: getIsLoading(state, { operation_name: 'logUserIn' }),
+        errors: getErrors(state, { operation_name: 'logUserIn' })
+    });
+    return mapStateToProps;
+};
 
 const mapDispatchToProps = {
     logUserIn
 };
 
 export default connect(
-    mapStateToProps,
+    makeMapStateToProps,
     mapDispatchToProps
 )(LoginScene);
 
@@ -82,12 +94,17 @@ const styles = StyleSheet.create({
         color: colors.darkGray,
         fontSize: 16
     },
+    error: {
+        fontWeight: 'bold',
+        color: colors.error,
+        fontSize: 16
+    },
     textInput: {
-        width: '100%',
+        width: '75%',
         height: 50,
         borderRadius: BORDER_RADIUS,
         backgroundColor: colors.lightGray,
-        padding: 8,
+        paddingHorizontal: PADDING,
         fontWeight: 'bold'
     },
     login: {

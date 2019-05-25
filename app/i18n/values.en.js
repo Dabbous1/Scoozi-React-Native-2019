@@ -10,5 +10,6 @@ module.exports = {
     remember_me: 'Remember me',
     register_now: 'Register now',
     forget_password: 'Forget password?',
-    password: 'Password'
+    password: 'Password',
+    back: 'Back'
 };

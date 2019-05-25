@@ -1,2 +1,7 @@
-export const PADDING = 16;
-export const BORDER_RADIUS = 10;
+const PADDING = 16;
+const BORDER_RADIUS = 10;
+
+module.exports = {
+    PADDING,
+    BORDER_RADIUS
+};
