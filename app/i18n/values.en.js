@@ -9,7 +9,7 @@ module.exports = {
     login_with_facebook: 'Login with Facebook',
     remember_me: 'Remember me',
     register_now: 'Register now',
-    forget_password: 'Forget password?',
+    forgot_password: 'Forgot password?',
     password: 'Password',
     back: 'Back'
 };

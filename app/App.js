@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { WelcomeScene, LoginScene } from './scenes';
+import { WelcomeScene, LoginScene, RegisterScene } from './scenes';
 import { SafeAreaView } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { store } from './reducers';
@@ -51,6 +51,11 @@ export default class App extends Component {
                                     key={'login'}
                                     component={LoginScene}
                                     title={i18n.t('login')}
+                                />
+                                <Scene
+                                    key={'register'}
+                                    component={RegisterScene}
+                                    title={i18n.t('register')}
                                 />
                             </Stack>
                         </Router>

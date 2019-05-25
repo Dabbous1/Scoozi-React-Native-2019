@@ -3,14 +3,18 @@ const NAMED_COLORS = {
     white: 'rgba(255, 255, 255, 1)',
     lightGray: 'rgba(238, 238, 238, 1)',
     darkGray: 'rgba(117, 142, 152, 1)',
-    red: 'rgba(217, 30, 24, 1)'
+    red: 'rgba(217, 30, 24, 1)',
+    facebook: 'rgba(59, 89, 153 , 1)',
+    google: 'rgba(221, 75, 57, 1)',
+    gray: 'rgba(0, 0, 0, 0.11)'
 };
 
 const THEME_COLORS = {
     ...NAMED_COLORS,
     main: NAMED_COLORS.whiteRed,
     background: NAMED_COLORS.white,
-    error: NAMED_COLORS.red
+    error: NAMED_COLORS.red,
+    border: NAMED_COLORS.gray
 };
 
 const colors = {

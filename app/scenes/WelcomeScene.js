@@ -14,13 +14,17 @@ export default class WelcomeScene extends Component {
     navigateToLogin = () => {
         Actions.login();
     };
+
+    navigateToRegister = () => {
+        Actions.register();
+    };
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{i18n.t('scoozi')}</Text>
                 <Text style={styles.instructions}>{i18n.t('reinventing_urban_mobility')}</Text>
                 <MainButton onPress={this.navigateToLogin} title={i18n.t('login')} />
-                <MainButton onPress={() => alert('not_implemented')} title={i18n.t('register')} />
+                <MainButton onPress={this.navigateToRegister} title={i18n.t('register')} />
             </View>
         );
     }
