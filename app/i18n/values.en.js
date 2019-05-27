@@ -17,5 +17,7 @@ module.exports = {
     password_conf: 'Password Confirmation',
     mobile_number: 'Mobile Number',
     register_with_google: 'Register with Google',
-    register_with_facebook: 'Register with Facebook'
+    register_with_facebook: 'Register with Facebook',
+    next: 'Next',
+    done: 'Done'
 };

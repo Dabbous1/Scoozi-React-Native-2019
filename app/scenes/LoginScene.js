@@ -1,10 +1,10 @@
 import React, { Component, useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import colors from '../common/colors';
 import { PADDING, BORDER_RADIUS } from '../common';
-import { logUserIn } from '../actions';
+import { logUserIn, signInWithFacebook } from '../actions';
 import i18n from '../i18n';
 import { makeIsOperationLoading, makeGetOperationError } from '../selectors';
 import { LoadingView, InputText } from '../components';
@@ -34,6 +34,11 @@ export class LoginScene extends Component {
             backTitle: i18n.t('login')
         });
     };
+
+    signInWithFacebook = () => {
+        const { signInWithFacebook } = this.props;
+        signInWithFacebook();
+    };
     render() {
         const { isLoading, errors } = this.props;
 
@@ -45,12 +50,21 @@ export class LoginScene extends Component {
                     placeholder={i18n.t('username_or_email')}
                     placeholderTextColor={colors.darkGray}
                     onChangeText={this.setLogin}
+                    returnKeyLabel={i18n.t('next')}
+                    returnKeyType={'next'}
+                    onSubmitEditing={() => this.password.focus()}
                 />
                 <InputText
                     ref={(ref) => (this.password = ref)}
                     placeholder={i18n.t('password')}
                     placeholderTextColor={colors.darkGray}
                     onChangeText={this.setPassword}
+                    secureTextEntry
+                    returnKeyLabel={i18n.t('done')}
+                    returnKeyType={'done'}
+                    onSubmitEditing={() => Keyboard.dismiss()}
+                    textContentType={'password'}
+                    autoCompleteType={'password'}
                 />
                 {errors ? <Text style={styles.error}>{errors && errors.error}</Text> : null}
                 <TouchableOpacity style={styles.login} onPress={this.logUserIn}>
@@ -65,7 +79,9 @@ export class LoginScene extends Component {
                         <Text style={styles.forgot}>{i18n.t('forgot_password')}</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={[styles.row, styles.fbLogin]}>
+                <TouchableOpacity
+                    style={[styles.row, styles.fbLogin]}
+                    onPress={this.signInWithFacebook}>
                     <Icon name={'facebook'} size={20} color={colors.white} />
                     <Text style={styles.loginTxt}>{i18n.t('login_with_facebook')}</Text>
                     <View />
@@ -91,7 +107,8 @@ const makeMapStateToProps = () => {
 };
 
 const mapDispatchToProps = {
-    logUserIn
+    logUserIn,
+    signInWithFacebook
 };
 
 export default connect(

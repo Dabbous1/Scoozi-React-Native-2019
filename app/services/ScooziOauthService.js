@@ -36,4 +36,13 @@ export default class ScooziOauthService {
             client_secret: secrets.client_secret
         });
     }
+
+    signInWithFacebook(data) {
+        return this.client.post('/oauth/token', {
+            grant_type: 'password',
+            facebook_token: data.accessToken,
+            client_id: secrets.client_id,
+            client_secret: secrets.client_secret
+        });
+    }
 }

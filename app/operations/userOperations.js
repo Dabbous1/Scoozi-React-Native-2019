@@ -2,6 +2,7 @@ import { createAsyncAction } from '../redux/createAsyncAction';
 import { actionTypes } from '../actions/actionTypes';
 import { ScooziApiService, ScooziOauthService } from '../services';
 import { setPublicAccessToken, setPrivateAccessToken } from '../actions/userActions';
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 export const getPublicAccessToken = createAsyncAction({
     type: actionTypes.GET_PUBLIC_ACCESS_TOKEN,
@@ -34,5 +35,29 @@ export const registerUser = createAsyncAction({
                 })
             );
         });
+    }
+});
+
+export const signInWithFacebook = createAsyncAction({
+    type: actionTypes.SIGN_IN_WITH_FACEBOOK,
+    operation: (payload, dispatch, getState) => {
+        return LoginManager.logInWithReadPermissions(['public_profile']).then(
+            (result) => {
+                if (!result.isCancelled) {
+                    AccessToken.getCurrentAccessToken().then((data) => {
+                        console.log(data);
+                        return ScooziOauthService.signInWithFacebook({
+                            accessToken: data.accessToken.toString()
+                        }).then((accessToken) => {
+                            dispatch(setPrivateAccessToken(accessToken));
+                            return accessToken;
+                        });
+                    });
+                }
+            },
+            (error) => {
+                console.log('Login fail with error: ' + error);
+            }
+        );
     }
 });

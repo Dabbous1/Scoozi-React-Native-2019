@@ -40,6 +40,8 @@ const InputText = React.forwardRef((props, ref) => {
                 ref={ref}
                 style={[styles.textInput, props.error ? styles.inputError : {}]}
                 onChangeText={onChangeText}
+                autoCorrect={false}
+                autoCapitalize={false}
             />
             {!props.hideError ? <Text style={styles.error}>{props.error}</Text> : null}
         </View>
