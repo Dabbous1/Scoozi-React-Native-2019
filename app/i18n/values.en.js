@@ -4,7 +4,7 @@ module.exports = {
     login: 'Login',
     register: 'Register',
     sign_in_manually: 'Sign in manually',
-    username_or_email: 'Username or email',
+    mobile_or_email: 'Mobile number or Email',
     login_with_google: 'Login with Google',
     login_with_facebook: 'Login with Facebook',
     remember_me: 'Remember me',

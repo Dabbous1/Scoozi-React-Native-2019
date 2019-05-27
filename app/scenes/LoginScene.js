@@ -47,7 +47,7 @@ export class LoginScene extends Component {
                 <Text style={styles.title}>{i18n.t('sign_in_manually')}</Text>
                 <InputText
                     ref={(ref) => (this.login = ref)}
-                    placeholder={i18n.t('username_or_email')}
+                    placeholder={i18n.t('mobile_or_email')}
                     placeholderTextColor={colors.darkGray}
                     onChangeText={this.setLogin}
                     returnKeyLabel={i18n.t('next')}
