@@ -19,5 +19,6 @@ module.exports = {
     register_with_google: 'Register with Google',
     register_with_facebook: 'Register with Facebook',
     next: 'Next',
-    done: 'Done'
+    done: 'Done',
+    ride: 'Ride'
 };
