@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         padding: PADDING
     },
     title: {
-        fontSize: 120,
+        fontSize: 100,
         fontWeight: 'bold',
         color: colors.main
     },
