@@ -20,5 +20,6 @@ module.exports = {
     register_with_facebook: 'Register with Facebook',
     next: 'Next',
     done: 'Done',
-    ride: 'Ride'
+    ride: 'Ride',
+    end_ride: 'End Ride'
 };

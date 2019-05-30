@@ -57,4 +57,12 @@ export default class ScooziApiService {
     register(params) {
         return this.post(`/users`, params);
     }
+
+    startRide(params) {
+        return this.post(`/trips`, params);
+    }
+
+    endRide(params) {
+        return this.put(`/trips/${params.trip_id}/end`, params);
+    }
 }

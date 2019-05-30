@@ -5,11 +5,16 @@ import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
 import colors from '../common/colors';
 import i18n from '../i18n';
+import { startRide } from '../actions';
 export class HomeScene extends Component {
     static propTypes = {
         prop: PropTypes
     };
 
+    startRide = () => {
+        const { startRide } = this.props;
+        startRide();
+    };
     render() {
         return (
             <View style={styles.container}>
@@ -24,7 +29,7 @@ export class HomeScene extends Component {
                         }}
                     />
                 </View>
-                <TouchableOpacity style={styles.ride}>
+                <TouchableOpacity style={styles.ride} onPress={this.startRide}>
                     <Text style={styles.rideTxt}>{i18n.t('ride')}</Text>
                 </TouchableOpacity>
             </View>
@@ -34,7 +39,9 @@ export class HomeScene extends Component {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    startRide
+};
 
 export default connect(
     mapStateToProps,

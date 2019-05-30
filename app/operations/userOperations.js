@@ -1,8 +1,13 @@
 import { createAsyncAction } from '../redux/createAsyncAction';
 import { actionTypes } from '../actions/actionTypes';
 import { ScooziApiService, ScooziOauthService } from '../services';
-import { setPublicAccessToken, setPrivateAccessToken } from '../actions/userActions';
+import {
+    setPublicAccessToken,
+    setPrivateAccessToken,
+    setCurrentRideId
+} from '../actions/userActions';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { Actions } from 'react-native-router-flux';
 
 export const getPublicAccessToken = createAsyncAction({
     type: actionTypes.GET_PUBLIC_ACCESS_TOKEN,
@@ -59,5 +64,27 @@ export const signInWithFacebook = createAsyncAction({
                 console.log('Login fail with error: ' + error);
             }
         );
+    }
+});
+
+export const startRide = createAsyncAction({
+    type: actionTypes.START_RIDE,
+    operation: (payload, dispatch, getState) => {
+        return ScooziApiService.startRide(payload).then((ride) => {
+            dispatch(setCurrentRideId(ride.id));
+            Actions.ride();
+            return ride;
+        });
+    }
+});
+
+export const endRide = createAsyncAction({
+    type: actionTypes.END_RIDE,
+    operation: (payload, dispatch, getState) => {
+        return ScooziApiService.endRide(payload).then((ride) => {
+            dispatch(setCurrentRideId(null));
+            Actions.pop();
+            return ride;
+        });
     }
 });

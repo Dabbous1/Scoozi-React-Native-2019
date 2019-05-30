@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, StatusBar, Platform } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import { Router, Scene, Stack, Drawer } from 'react-native-router-flux';
-import { WelcomeScene, LoginScene, RegisterScene, HomeScene } from './scenes';
+import { WelcomeScene, LoginScene, RegisterScene, HomeScene, RideScene } from './scenes';
 import { SafeAreaView } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { store } from './reducers';
 import { persistStore } from 'redux-persist';
 import { ScooziApiService } from './services';
 import { getPublicAccessToken } from './actions';
-import { getPublicToken } from './selectors';
+import { getPublicToken, getPrivateToken } from './selectors';
 import i18n from './i18n';
-import { PADDING, colors } from './common';
-import { getPrivateToken } from './selectors/userSelectors';
+import { colors } from './common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 ScooziApiService.setStore(store);
 
 const TopBar = () => <StatusBar barStyle={'light-content'} backgroundColor={colors.main} />;
@@ -71,6 +71,12 @@ export default class App extends Component {
                                         initial
                                         component={HomeScene}
                                         title={i18n.t('scoozi')}
+                                    />
+                                    <Scene
+                                        key={'ride'}
+                                        component={RideScene}
+                                        title={i18n.t('ride')}
+                                        hideNavBar
                                     />
                                 </Drawer>
                             </Stack>

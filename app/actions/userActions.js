@@ -9,3 +9,8 @@ export const setPrivateAccessToken = (accessToken) => ({
     type: actionTypes.SET_PRIVATE_ACCESS_TOKEN,
     accessToken
 });
+
+export const setCurrentRideId = (id) => ({
+    type: actionTypes.SET_CURRENT_RIDE_ID,
+    id
+});

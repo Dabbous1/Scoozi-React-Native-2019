@@ -17,3 +17,12 @@ export const privateAccessToken = (state = null, action) => {
             return state;
     }
 };
+
+export const currentRideId = (state = null, action) => {
+    switch (action.type) {
+        case actionTypes.SET_CURRENT_RIDE_ID:
+            return action.id;
+        default:
+            return state;
+    }
+};
