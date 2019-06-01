@@ -6,6 +6,8 @@ import MapView from 'react-native-maps';
 import colors from '../common/colors';
 import i18n from '../i18n';
 import { startRide } from '../actions';
+import { makeIsOperationLoading } from '../selectors';
+import { LoadingView } from '../components';
 export class HomeScene extends Component {
     static propTypes = {
         prop: PropTypes
@@ -16,35 +18,43 @@ export class HomeScene extends Component {
         startRide();
     };
     render() {
+        const { isLoading } = this.props;
         return (
-            <View style={styles.container}>
+            <LoadingView isLoading={isLoading} containerStyle={styles.container}>
                 <View style={styles.container}>
                     <MapView
                         style={styles.map}
                         region={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
+                            latitude: 30.0609,
+                            longitude: 31.2197,
                             latitudeDelta: 0.015,
                             longitudeDelta: 0.0121
                         }}
+                        zoomControlEnabled
+                        zoomEnabled
                     />
                 </View>
                 <TouchableOpacity style={styles.ride} onPress={this.startRide}>
                     <Text style={styles.rideTxt}>{i18n.t('ride')}</Text>
                 </TouchableOpacity>
-            </View>
+            </LoadingView>
         );
     }
 }
-
-const mapStateToProps = (state) => ({});
+const makeMapStateToProps = () => {
+    const getIsLoading = makeIsOperationLoading();
+    const mapStateToProps = (state) => ({
+        isLoading: getIsLoading(state, { operation_name: 'startRide' })
+    });
+    return mapStateToProps;
+};
 
 const mapDispatchToProps = {
     startRide
 };
 
 export default connect(
-    mapStateToProps,
+    makeMapStateToProps,
     mapDispatchToProps
 )(HomeScene);
 

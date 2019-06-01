@@ -6,7 +6,8 @@ const NAMED_COLORS = {
     red: 'rgba(217, 30, 24, 1)',
     facebook: 'rgba(59, 89, 153 , 1)',
     google: 'rgba(221, 75, 57, 1)',
-    gray: 'rgba(0, 0, 0, 0.11)'
+    gray: 'rgba(0, 0, 0, 0.11)',
+    black: 'rgba(0, 0, 0, 1)'
 };
 
 const THEME_COLORS = {

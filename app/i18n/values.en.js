@@ -21,5 +21,12 @@ module.exports = {
     next: 'Next',
     done: 'Done',
     ride: 'Ride',
-    end_ride: 'End Ride'
+    end_ride: 'End Ride',
+    riding: 'You are currently riding a scooter for',
+    ride_summary: 'Ride Summary',
+    time: 'Time',
+    start_time: 'Start Time',
+    end_time: 'End Time',
+    cost: 'Cost',
+    back_to_home: 'Back to Home'
 };

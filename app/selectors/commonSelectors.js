@@ -11,23 +11,38 @@ export const makeGetOperation = () => {
 };
 
 export const makeIsOperationLoading = () => {
-    return createSelector(makeGetOperation(), (operation) => operation && operation.loading);
+    return createSelector(
+        makeGetOperation(),
+        (operation) => operation && operation.loading
+    );
 };
 
 export const makeIsOperationLoadingMore = () => {
-    return createSelector(makeGetOperation(), (operation) => operation && operation.loadingMore);
+    return createSelector(
+        makeGetOperation(),
+        (operation) => operation && operation.loadingMore
+    );
 };
 
 export const makeGetOperationError = () => {
-    return createSelector(makeGetOperation(), (operation) => operation && operation.error);
+    return createSelector(
+        makeGetOperation(),
+        (operation) => operation && operation.error
+    );
 };
 
 export const makeGetOperationResult = () => {
-    return createSelector(makeGetOperation(), (operation) => operation && operation.result);
+    return createSelector(
+        makeGetOperation(),
+        (operation) => operation && operation.result
+    );
 };
 
 export const makeGetOperationIds = () => {
-    return createSelector(makeGetOperation(), (operation) => operation && operation.ids);
+    return createSelector(
+        makeGetOperation(),
+        (operation) => operation && operation.ids
+    );
 };
 
 export const makeCanOperationLoadMore = () => {
@@ -44,7 +59,10 @@ export const makeCanOperationLoadMore = () => {
 };
 
 export const makegetOperationCurrentPage = () => {
-    return createSelector(makeGetOperationResult(), (result) => result && result.current_page);
+    return createSelector(
+        makeGetOperationResult(),
+        (result) => result && result.current_page
+    );
 };
 
 export const makeCanRequestMore = () => {

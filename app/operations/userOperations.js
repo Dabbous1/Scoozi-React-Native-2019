@@ -24,6 +24,7 @@ export const logUserIn = createAsyncAction({
     operation: (payload, dispatch, getState) => {
         return ScooziOauthService.getPrivateAccessToken(payload).then((accessToken) => {
             dispatch(setPrivateAccessToken(accessToken));
+            Actions.home();
             return accessToken;
         });
     }
@@ -69,10 +70,11 @@ export const signInWithFacebook = createAsyncAction({
 
 export const startRide = createAsyncAction({
     type: actionTypes.START_RIDE,
+    schema: 'ride',
     operation: (payload, dispatch, getState) => {
         return ScooziApiService.startRide(payload).then((ride) => {
             dispatch(setCurrentRideId(ride.id));
-            Actions.ride();
+            Actions.ride({ ride_id: ride.id });
             return ride;
         });
     }
@@ -80,10 +82,9 @@ export const startRide = createAsyncAction({
 
 export const endRide = createAsyncAction({
     type: actionTypes.END_RIDE,
+    schema: 'ride',
     operation: (payload, dispatch, getState) => {
         return ScooziApiService.endRide(payload).then((ride) => {
-            dispatch(setCurrentRideId(null));
-            Actions.pop();
             return ride;
         });
     }
