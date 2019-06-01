@@ -28,5 +28,9 @@ module.exports = {
     start_time: 'Start Time',
     end_time: 'End Time',
     cost: 'Cost',
-    back_to_home: 'Back to Home'
+    back_to_home: 'Back to Home',
+    unlocking_scooter: 'Unlocking Scooter',
+    you_are_going: 'You are going to unlock scooter for 5EGP, Are you sure you want to continue?',
+    confirm: 'Confirm',
+    cancel: 'Cancel'
 };

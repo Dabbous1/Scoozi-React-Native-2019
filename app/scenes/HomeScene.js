@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
@@ -15,7 +15,17 @@ export class HomeScene extends Component {
 
     startRide = () => {
         const { startRide } = this.props;
-        startRide();
+        Alert.alert(
+            i18n.t('unlocking_scooter'),
+            i18n.t('you_are_going'),
+            [
+                { text: i18n.t('confirm'), onPress: () => startRide(), style: 'destructive' },
+                { text: i18n.t('cancel'), style: 'cancel' }
+            ],
+            {
+                cancelable: true
+            }
+        );
     };
     render() {
         const { isLoading } = this.props;
