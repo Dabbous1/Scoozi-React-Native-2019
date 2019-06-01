@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { colors, PADDING, BORDER_RADIUS } from '../common';
 import i18n from '../i18n';
-import { endRide } from '../actions';
+import { endRide, setCurrentRideId } from '../actions';
 import { getCurrentRideId } from '../selectors';
 import { Stopwatch } from 'react-native-stopwatch-timer';
 import get from 'lodash/get';
@@ -34,10 +34,12 @@ export class RideScene extends Component {
     };
 
     goBack = () => {
+        const { setCurrentRideId } = this.props;
         this.setState({
             showSummary: false
         });
         Actions.pop();
+        setCurrentRideId(null);
     };
 
     render() {
@@ -96,7 +98,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = {
-    endRide
+    endRide,
+    setCurrentRideId
 };
 
 export default connect(
